@@ -36,7 +36,7 @@ prior.neg = length(train.data.neg) / train.nrows
 test.data = as.matrix(read.table(test.file))
 test.nrows = nrow(test.data)
 
-# initialize likelihood measures and test class predictions
+# initialize posteriors and class predictions
 post.pos <- rep(prior.pos, test.nrows)
 post.neg <- rep(prior.neg, test.nrows)
 test.pred = vector()
