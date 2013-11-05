@@ -1,5 +1,7 @@
 # Implementation of the Naive Bayes Classifier in R
-## Author: Josh Tan
+## Josh Tan
+## CSCI 479
+## 11/5/13
 
 # TODO: employ Laplace correction
 
