@@ -4,8 +4,8 @@
 ## 11/5/13
 
 # input parameters
-train.file = "ExampleDatasets/irisTraining.txt"
-test.file = "ExampleDatasets/irisTesting.txt"
+train.file = "ExampleDatasets/buyTraining.txt"
+test.file = "ExampleDatasets/buyTesting.txt"
 
 # TRAINING
 
@@ -18,17 +18,21 @@ ncols = ncol(train.data) - 1 # last attribute is the class label
 train.data.pos = which(train.data[, (ncols + 1)] == 1)
 train.data.neg = which(train.data[, (ncols + 1)] == -1)
 
-## for each class, calculate means for each attribute
-train.data.pos.mean = colMeans(train.data[train.data.pos, 1:ncols])
-train.data.neg.mean = colMeans(train.data[train.data.neg, 1:ncols])
+## ## for each class, calculate means for each attribute
+## train.data.pos.mean = colMeans(train.data[train.data.pos, 1:ncols])
+## train.data.neg.mean = colMeans(train.data[train.data.neg, 1:ncols])
 
-## for each class, calculate standard deviations for each attribute
-train.data.pos.sd = apply(train.data[train.data.pos, 1:ncols], 2, sd)
-train.data.neg.sd = apply(train.data[train.data.neg, 1:ncols], 2, sd)
+## ## for each class, calculate standard deviations for each attribute
+## train.data.pos.sd = apply(train.data[train.data.pos, 1:ncols], 2, sd)
+## train.data.neg.sd = apply(train.data[train.data.neg, 1:ncols], 2, sd)
 
 ## for each class, calculate priors
 prior.pos = length(train.data.pos) / train.nrows
 prior.neg = length(train.data.neg) / train.nrows
+
+
+## as.data.frame(table(train.data[,1]))
+
 
 # TESTING
 
@@ -50,10 +54,15 @@ false.neg = 0;
 for (i in 1:test.nrows) {
 
     for (j in 1:ncols) {
-        
-        # calculate numerator of posteriori (likelihood * prior)
-        post.pos[i] = post.pos[i] * dnorm(test.data[i,j], train.data.pos.mean[j], train.data.pos.sd[j])
-        post.neg[i] = post.neg[i] * dnorm(test.data[i,j], train.data.neg.mean[j], train.data.neg.sd[j])
+        ## calculate numerator of posteriori (likelihood * prior)
+        num.occur = length(which(train.data[,j] == test.data[i,j]))
+
+        if (num.occur == 0) {
+            print("Do something.\n")
+        }
+
+        post.pos[i] = post.pos[i] * (num.occur / train.nrows)
+        post.neg[i] = post.neg[i] * (num.occur / train.nrows)
     }
 
     # compare posteriors to determine which is greater; corresponding class will be used
