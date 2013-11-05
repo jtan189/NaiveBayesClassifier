@@ -1,4 +1,4 @@
-# Implementation of the Naive Bayes Classifier in R
+# Implementation of the Naive Bayes Classifier in R (for categorical attributes)
 ## Josh Tan
 ## CSCI 479
 ## 11/5/13
