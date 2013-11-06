@@ -78,7 +78,7 @@ for (i in 1:test.nrows) {
     }
 }
 
-# calculate performance metrics
+## calculate performance metrics
 accuracy = (true.pos + true.neg) / test.nrows
 precision = true.pos / (true.pos + false.pos)
 recall = true.pos / (true.pos + false.neg)

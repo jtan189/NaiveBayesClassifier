@@ -52,14 +52,14 @@ for (i in 1:test.nrows) {
         post.neg[i] = post.neg[i] * (num.occur / denom)
     }
 
-    # compare posterior numerators to determine which is greater; corresponding class will be used
+    ## compare posterior numerators to determine which is greater; corresponding class will be used
     if (post.pos[i] >= post.neg[i]) { # if equal, just choose the positive class
         test.pred[i] = 1
     } else {
         test.pred[i] = -1
     } 
 
-    # increment appropriate assessment variable
+    ## increment appropriate assessment variable
     if (test.pred[i] == 1) {
         if (test.data[i, ncols + 1] == 1) {
             true.pos = true.pos + 1
@@ -75,7 +75,7 @@ for (i in 1:test.nrows) {
     }
 }
 
-# calculate performance metrics
+## calculate performance metrics
 accuracy = (true.pos + true.neg) / test.nrows
 precision = true.pos / (true.pos + false.pos)
 recall = true.pos / (true.pos + false.neg)
