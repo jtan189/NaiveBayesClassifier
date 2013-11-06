@@ -1,11 +1,11 @@
-## Implementation of the Naive Bayes Classifier in R
+## Implementation of the Naive Bayes Classifier in R (for numeric data)
 ## Josh Tan
 ## CSCI 479
 ## 11/5/13
 
 ## input parameters
-train.file = "ExampleDatasets/irisPCTraining.txt"
-test.file = "ExampleDatasets/irisPCTesting.txt"
+train.file = "ExampleDatasets/irisTraining.txt"
+test.file = "ExampleDatasets/irisTesting.txt"
 
 ## TRAINING
 
@@ -51,11 +51,11 @@ for (i in 1:test.nrows) {
     likelihood.pos = dnorm(test.data[i,1:ncols], train.pos.mean, train.pos.sd)
     likelihood.neg = dnorm(test.data[i,1:ncols], train.neg.mean, train.neg.sd)
 
-    ## posterior = likelikehood * prior
+    ## posterior numerator  = likelikehood * prior
     post.pos[i] = prod(likelihood.pos) * prior.pos
     post.neg[i] = prod(likelihood.neg) * prior.neg
     
-    ## compare posteriors to determine which is greater; corresponding class will be used
+    ## compare posterior numerators to determine which is greater; corresponding class will be used
     if (post.pos[i] >= post.neg[i]) { # if equal, just choose the positive class
         test.pred[i] = 1
     } else {

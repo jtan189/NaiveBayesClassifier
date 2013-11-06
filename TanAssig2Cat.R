@@ -1,4 +1,4 @@
-## Implementation of the Naive Bayes Classifier in R (for categorical attributes)
+## Implementation of the Naive Bayes Classifier in R (for categorical data)
 ## Josh Tan
 ## CSCI 479
 ## 11/5/13
@@ -15,12 +15,12 @@ train.nrows = nrow(train.data)
 ncols = ncol(train.data) - 1 # last attribute is the class label
 
 ## separate data based on class
-train.data.pos = which(train.data[, (ncols + 1)] == 1)
-train.data.neg = which(train.data[, (ncols + 1)] == -1)
+train.pos = which(train.data[, (ncols + 1)] == 1)
+train.neg = which(train.data[, (ncols + 1)] == -1)
 
 ## for each class, calculate priors
-prior.pos = length(train.data.pos) / train.nrows
-prior.neg = length(train.data.neg) / train.nrows
+prior.pos = length(train.pos) / train.nrows
+prior.neg = length(train.neg) / train.nrows
 
 ## TESTING
 
@@ -42,27 +42,17 @@ false.neg = 0;
 for (i in 1:test.nrows) {
 
     for (j in 1:ncols) {
+
         ## calculate numerator of posteriori (likelihood * prior)
-        num.occur = length(which(train.data[,j] == test.data[i,j])) + 1 # apply laplace correction by adding 1
+        num.occur = length(which(train.data[,j] == test.data[i,j])) + 1 # apply Laplace correction by adding 1
+        denom = train.nrows + length(unique(rbind(test.data[i,j], train.data[i,j]))) # add number of unique categories to denominator
 
-        denom = train.nrows + length(unique(test.data[,j])) + length(unique(train.data[,j])) # add in number of unique categories
-
+        ## posterior numerator  = likelikehood * prior
         post.pos[i] = post.pos[i] * (num.occur / denom)
         post.neg[i] = post.neg[i] * (num.occur / denom)
-
-        ## <debug>
-        ## print("-------\n")
-        ## cat('post.pos: ', post.pos[i], "\n")
-        ## cat('post.neg: ', post.neg[i], "\n")
-        ## cat('prior.pos: ', prior.pos, "\n")
-        ## cat('prior.neg: ', prior.neg, "\n")
-        ## cat('numer: ', num.occur, "\n")
-        ## cat('denom: ', denom, "\n")
-        ## print("-------\n")
-        ## </debug>
     }
 
-    # compare posteriors to determine which is greater; corresponding class will be used
+    # compare posterior numerators to determine which is greater; corresponding class will be used
     if (post.pos[i] >= post.neg[i]) { # if equal, just choose the positive class
         test.pred[i] = 1
     } else {

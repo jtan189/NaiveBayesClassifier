@@ -31,7 +31,7 @@ cat("\n-- buy --\n")
 train.data = read.table("ExampleDatasets/buyTraining.txt")
 test.data = read.table("ExampleDatasets/buyTesting.txt")
 
-predictor <- naiveBayes(train.data[,1:4], factor(train.data[,5]))
+predictor <- naiveBayes(train.data[,1:4], factor(train.data[,5]), laplace=1)
 prediction <- table(predict(m, test.data[,1:4]), factor(test.data[,5]))
 
 cat("True Positives: ", prediction[2,2], "\n")
