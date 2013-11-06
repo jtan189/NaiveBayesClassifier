@@ -51,14 +51,14 @@ for (i in 1:test.nrows) {
         post.neg[i] = post.neg[i] * (num.occur / denom)
 
         ## <debug>
-        print("-------\n")
-        cat('post.pos: ', post.pos[i], "\n")
-        cat('post.neg: ', post.neg[i], "\n")
-        cat('prior.pos: ', prior.pos, "\n")
-        cat('prior.neg: ', prior.neg, "\n")
-        cat('numer: ', num.occur, "\n")
-        cat('denom: ', denom, "\n")
-        print("-------\n")
+        ## print("-------\n")
+        ## cat('post.pos: ', post.pos[i], "\n")
+        ## cat('post.neg: ', post.neg[i], "\n")
+        ## cat('prior.pos: ', prior.pos, "\n")
+        ## cat('prior.neg: ', prior.neg, "\n")
+        ## cat('numer: ', num.occur, "\n")
+        ## cat('denom: ', denom, "\n")
+        ## print("-------\n")
         ## </debug>
     }
 
